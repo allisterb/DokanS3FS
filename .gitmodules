@@ -1,0 +1,3 @@
+[submodule "ext/dokan-dotnet"]
+	path = ext/dokan-dotnet
+	url = https://github.com/allisterb/dokan-dotnet.git
