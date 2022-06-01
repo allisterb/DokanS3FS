@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32104.313
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DokanS3FS", "DokanS3FS\DokanS3FS.csproj", "{383B8AAC-C39A-4A19-A0F3-421A338CF4A3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DokanNet", "..\ext\dokan-dotnet\DokanNet\DokanNet.csproj", "{1F3474CA-7D8B-413D-B385-C08A2267A784}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{383B8AAC-C39A-4A19-A0F3-421A338CF4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{383B8AAC-C39A-4A19-A0F3-421A338CF4A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{383B8AAC-C39A-4A19-A0F3-421A338CF4A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F3474CA-7D8B-413D-B385-C08A2267A784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F3474CA-7D8B-413D-B385-C08A2267A784}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F3474CA-7D8B-413D-B385-C08A2267A784}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F3474CA-7D8B-413D-B385-C08A2267A784}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
