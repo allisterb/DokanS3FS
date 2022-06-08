@@ -6,7 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.7.9.11" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\ext\dokan-dotnet\DokanNet\DokanNet.csproj" />
+    <ProjectReference Include="..\DokanS3FS.Base\DokanS3FS.Base.csproj" />
   </ItemGroup>
 
 </Project>

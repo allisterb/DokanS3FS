@@ -7,4 +7,9 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DokanS3FS.Base\DokanS3FS.Base.csproj" />
+    <ProjectReference Include="..\DokanS3FS\DokanS3FS.csproj" />
+  </ItemGroup>
+
 </Project>
