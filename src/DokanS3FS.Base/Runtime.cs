@@ -13,33 +13,10 @@ public abstract class Runtime
     static Runtime()
     {
         Logger = new ConsoleLogger();
-        IsKubernetesPod = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("KUBERNETES_PORT")) || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("OPENSHIFT_BUILD_NAMESPACE"));
-        if (IsKubernetesPod)
-        {
-            Configuration = new ConfigurationBuilder()
-                .AddEnvironmentVariables()
-                .Build();
-        }
-        else if (Assembly.GetEntryAssembly()?.GetName().Name == "DokanS3FS.Control" && Environment.GetEnvironmentVariable("USERNAME") == "Allister")
-        {
-            Configuration = new ConfigurationBuilder()
-                .AddEnvironmentVariables()
-                .Build();
-        }
-        else if (Assembly.GetEntryAssembly()?.GetName().Name == "DokanS3FS.Control")
-        {
-            Configuration = new ConfigurationBuilder()
+        Configuration = new ConfigurationBuilder()
             .AddJsonFile("config.json", optional: true)
             .AddEnvironmentVariables()
             .Build();
-        }
-        else
-        {
-            Configuration = new ConfigurationBuilder()
-            .AddJsonFile("config.json", optional: true)
-            .Build();
-        }
-
         DefaultHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("DokanS3FS/" + AssemblyVersion.ToString(2));
     }
     public Runtime(CancellationToken ct)
@@ -57,10 +34,6 @@ public abstract class Runtime
     public static bool DebugEnabled { get; set; }
 
     public static bool InteractiveConsole { get; set; } = false;
-
-    public static bool IsKubernetesPod { get; }
-
-    public static bool IsAzureFunction { get; set; }
 
     public static string PathSeparator { get; } = Environment.OSVersion.Platform == PlatformID.Win32NT ? "\\" : "/";
 
