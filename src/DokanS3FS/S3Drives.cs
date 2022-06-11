@@ -16,6 +16,9 @@ public partial class S3Drives
     [XmlArray("drives", IsNullable = false)]
     [XmlArrayItem("drive", IsNullable = false)]
     public S3Drive[] Drives { get; set; } = {};
+
+    [XmlIgnore]
+    public string Source { get; set; } = string.Empty;
 }
 
 [Serializable()]
@@ -41,4 +44,3 @@ public partial class S3Drive
     [XmlAttribute("timeout")]
     public ushort Timeout { get; set; } = 100;
 }
-
