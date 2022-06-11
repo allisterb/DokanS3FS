@@ -8,6 +8,8 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
+using System.Xml.Serialization;
+
 using CommandLine;
 using CommandLine.Text;
 
@@ -58,7 +60,14 @@ internal class Program : Runtime
         // see https://aka.ms/applicationconfiguration.
         //ApplicationConfiguration.Initialize();
         //Application.Run(new Form1());
-        S3.Connect();
+        //S3.Connect();
+        XmlSerializer serializer = new XmlSerializer(typeof(S3Drives));
+        S3Drives? d = null;
+        using Stream reader = new FileStream("s3.xml", FileMode.Open);
+        
+            // Call the Deserialize method to restore the object's state.
+        S3Drives? i = (S3Drives) serializer.Deserialize(reader);
+        
     }
     #endregion
     #region Methods

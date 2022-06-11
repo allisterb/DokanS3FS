@@ -3,27 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Xml;
+using System.Xml.Serialization;
 namespace DokanS3FS
 {
-
-    // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public partial class mount
+    [Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
+    [XmlRoot(Namespace = "", IsNullable = false, ElementName ="s3")]
+    public partial class S3Drives
     {
+        private byte threadsField;
 
         private mountDrive[]? drivesField;
 
-        private string? libPathField;
-
-        private byte? threadsField;
+        /// <remarks/>
+        [XmlAttribute()]
+        public byte threads
+        {
+            get
+            {
+                return this.threadsField;
+            }
+            set
+            {
+                this.threadsField = value;
+            }
+        }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("drive", IsNullable = false)]
+        [XmlArrayItem("drive", IsNullable = false)]
+        //[XmlElement(ElementName = "drives", IsNullable = false)]
         public mountDrive[]? drives
         {
             get
@@ -35,60 +45,31 @@ namespace DokanS3FS
                 this.drivesField = value;
             }
         }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string? libPath
-        {
-            get
-            {
-                return this.libPathField;
-            }
-            set
-            {
-                this.libPathField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte? threads
-        {
-            get
-            {
-                return this.threadsField;
-            }
-            set
-            {
-                this.threadsField = value;
-            }
-        }
     }
 
     /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    [Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
     public partial class mountDrive
     {
 
-        private string? schemaField;
+        private string schemaField = string.Empty;
 
-        private string? userNameField;
+        private string userNameField = string.Empty;
 
-        private string? rootField;
+        private string rootField = string.Empty;
 
-        private string? encryptionKeyField;
+        private string encryptionKeyField = string.Empty;
 
-        private ushort? timeoutField;
+        private ushort timeoutField;
 
-        private string? parametersField;
+        private string parametersField = string.Empty;
 
-        private string? apiKeyField;
+        private string apiKeyField = string.Empty;
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string? schema
+        [XmlAttribute()]
+        public string schema
         {
             get
             {
@@ -100,9 +81,9 @@ namespace DokanS3FS
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string? userName
+      
+        [XmlAttribute()]
+        public string userName
         {
             get
             {
@@ -115,8 +96,8 @@ namespace DokanS3FS
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string? root
+        [XmlAttribute()]
+        public string root
         {
             get
             {
@@ -129,8 +110,8 @@ namespace DokanS3FS
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string? encryptionKey
+        [XmlAttribute()]
+        public string encryptionKey
         {
             get
             {
@@ -143,8 +124,8 @@ namespace DokanS3FS
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort? timeout
+        [XmlAttribute()]
+        public ushort timeout
         {
             get
             {
@@ -157,7 +138,7 @@ namespace DokanS3FS
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string? parameters
         {
             get
@@ -171,7 +152,7 @@ namespace DokanS3FS
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string? apiKey
         {
             get
