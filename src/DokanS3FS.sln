@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DokanNet", "..\ext\dokan-do
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DokanS3FS.Control", "DokanS3FS.Control\DokanS3FS.Control.csproj", "{B3E06CD5-470D-4925-94AC-CCC5D0700A60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DokanS3FS.Base", "DokanS3FS.Base\DokanS3FS.Base.csproj", "{AD0615F2-28C1-4F91-AC62-6CC5D7ABCA7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DokanS3FS.Base", "DokanS3FS.Base\DokanS3FS.Base.csproj", "{AD0615F2-28C1-4F91-AC62-6CC5D7ABCA7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DokanS3FS.Tests", "..\tests\DokanS3FS.Tests\DokanS3FS.Tests.csproj", "{9B4FADDB-E97B-4073-8358-E106506F165C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{AD0615F2-28C1-4F91-AC62-6CC5D7ABCA7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD0615F2-28C1-4F91-AC62-6CC5D7ABCA7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD0615F2-28C1-4F91-AC62-6CC5D7ABCA7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B4FADDB-E97B-4073-8358-E106506F165C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B4FADDB-E97B-4073-8358-E106506F165C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B4FADDB-E97B-4073-8358-E106506F165C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B4FADDB-E97B-4073-8358-E106506F165C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
