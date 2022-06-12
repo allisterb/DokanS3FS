@@ -61,12 +61,12 @@ internal class Program : Runtime
         //ApplicationConfiguration.Initialize();
         //Application.Run(new Form1());
         //S3.Connect();
-        XmlSerializer serializer = new XmlSerializer(typeof(S3Drives));
-        S3Drives? d = null;
+        XmlSerializer serializer = new XmlSerializer(typeof(S3Config));
+        S3Config? d = null;
         using Stream reader = new FileStream("s3.xml", FileMode.Open);
         
             // Call the Deserialize method to restore the object's state.
-        S3Drives? i = (S3Drives) serializer.Deserialize(reader);
+        S3Config? i = (S3Config) serializer.Deserialize(reader);
         
     }
     #endregion

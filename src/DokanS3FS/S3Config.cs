@@ -8,14 +8,14 @@ namespace DokanS3FS;
 [System.ComponentModel.DesignerCategory("code")]
 [XmlType(AnonymousType = true)]
 [XmlRoot("s3", Namespace = "", IsNullable = false)]
-public partial class S3Drives
+public partial class S3Config
 {
     [XmlAttribute("threads")]
     public byte Threads { get; set; }
 
     [XmlArray("drives", IsNullable = false)]
     [XmlArrayItem("drive", IsNullable = false)]
-    public S3Drive[] Drives { get; set; } = {};
+    public S3DriveConfig[] Drives { get; set; } = {};
 
     [XmlIgnore]
     public string Source { get; set; } = string.Empty;
@@ -24,7 +24,7 @@ public partial class S3Drives
 [Serializable()]
 [System.ComponentModel.DesignerCategory("code")]
 [XmlType(AnonymousType = true)]
-public partial class S3Drive
+public partial class S3DriveConfig
 {
     [XmlAttribute("vol")]
     public string Vol { get; set; } = string.Empty;

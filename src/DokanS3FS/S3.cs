@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 using Amazon.S3;
@@ -11,13 +12,13 @@ using Amazon.S3.Model;
 public class S3 : Runtime
 {
     #region Config
-    public static new S3Drives Config { get; private set; } = new S3Drives();
+    public static new S3Config Config { get; private set; } = new S3Config();
     
-    public static S3Drives ParseConfig(string filename)
+    public static S3Config ParseConfig(string filename)
     {
-        XmlSerializer serializer = new XmlSerializer(typeof(S3Drives));
+        XmlSerializer serializer = new XmlSerializer(typeof(S3Config));
         using Stream reader = new FileStream(filename, FileMode.Open);
-        S3Drives config =  (S3Drives) serializer.Deserialize(reader)!;
+        S3Config config =  (S3Config) serializer.Deserialize(reader)!;
         if (config is null)
         {
             throw new S3ConfigException("Did not parse S3 drives configuration.");
@@ -39,13 +40,13 @@ public class S3 : Runtime
     {
         Config = ParseConfig(filename);
         Config.Source = File.ReadAllText(filename);
-        foreach (var drive in Config.Drives)
+        foreach (var d in Config.Drives)
         {
-            Clients.Add(drive, GetS3Client(drive));
+            Drives.Add(new S3Drive(d));
         }
     }
 
-    public static Dictionary<S3Drive, AmazonS3Client> Clients { get; } = new Dictionary<S3Drive, AmazonS3Client>();
+    public static List<S3Drive> Drives { get; } = new ();
     #endregion
 
     #region S3 API
@@ -57,7 +58,22 @@ public class S3 : Runtime
         return new AmazonS3Client(key, secret, config);
     }
 
-    public static AmazonS3Client GetS3Client(S3Drive drive) => GetS3Client(drive.ServiceUrl, drive.Key, drive.Secret);
+    public static AmazonS3Client GetS3Client(S3DriveConfig drive) => GetS3Client(drive.ServiceUrl, drive.Key, drive.Secret);
+
+    public static async Task<bool> CreateBucket(AmazonS3Client client, string name)
+    {
+        try
+        {
+            using var op = Runtime.Begin("Creating bucket {0}", name);
+            var r = await client.PutBucketAsync(name, Ct);
+            op.Complete();
+            return r.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        }
+        catch (Exception e)
+        {
+            Error(e, "Error creating bucket {0}.", name);
+            return false;
+        }
+    }
     #endregion
 }
-;

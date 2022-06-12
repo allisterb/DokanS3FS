@@ -1,3 +1,5 @@
+using System.Linq;
+
 using Xunit;
 
 namespace DokanS3FS
@@ -13,6 +15,8 @@ namespace DokanS3FS
         public void CanConnectToS3()
         {
             Assert.NotEmpty(S3.Config.Drives);
+            Assert.NotEmpty(S3.Drives);
+            //S3.ListObjects(c, );
         }
     }
 }
