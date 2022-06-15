@@ -34,6 +34,8 @@ public abstract class Logger
 
     public abstract void Error(Exception ex, string messageTemplate, params object[] args);
 
+    public abstract void Verbose(string messageTemplate, params object[] args);
+
     public abstract void Warn(string messageTemplate, params object[] args);
 
     public abstract void Fatal(string messageTemplate, params object[] args);
@@ -98,6 +100,8 @@ public class ConsoleLogger : Logger
     public override void Error(string messageTemplate, params object[] args) => Console.WriteLine("[ERROR] " + messageTemplate, args);
 
     public override void Error(Exception ex, string messageTemplate, params object[] args) => Console.WriteLine("[ERROR] " + messageTemplate, args);
+
+    public override void Verbose(string messageTemplate, params object[] args) => Console.WriteLine("[VERBOSE] " + messageTemplate, args);
 
     public override void Warn(string messageTemplate, params object[] args) => Console.WriteLine("[WARN] " + messageTemplate, args);
 

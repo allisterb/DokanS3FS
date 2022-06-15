@@ -47,6 +47,9 @@ public class SerilogLogger : Logger
     public override void Error(Exception ex, string messageTemplate, params object[] args) => Logger.Error(ex, messageTemplate, args);
 
     [DebuggerStepThrough]
+    public override void Verbose(string messageTemplate, params object[] args) => Logger.Verbose(messageTemplate, args);
+
+    [DebuggerStepThrough]
     public override void Warn(string messageTemplate, params object[] args) => Logger.Warning(messageTemplate, args);
 
     [DebuggerStepThrough]

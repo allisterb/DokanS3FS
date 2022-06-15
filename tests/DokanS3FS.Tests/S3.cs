@@ -16,7 +16,6 @@ namespace DokanS3FS
         {
             Assert.NotEmpty(S3.Config.Drives);
             Assert.NotEmpty(S3.Drives);
-            //S3.ListObjects(c, );
         }
     }
 }

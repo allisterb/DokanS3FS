@@ -91,6 +91,10 @@ public abstract class Runtime
     [DebuggerStepThrough]
     public static void Error(Exception ex, string messageTemplate, params object[] args) => Logger.Error(ex, messageTemplate, args);
 
+
+    [DebuggerStepThrough]
+    public static void Verbose(string messageTemplate, params object[] args) => Logger.Verbose(messageTemplate, args);
+
     [DebuggerStepThrough]
     public static void Warn(string messageTemplate, params object[] args) => Logger.Warn(messageTemplate, args);
 

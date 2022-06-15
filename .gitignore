@@ -367,3 +367,5 @@ FodyWeavers.xsd
 
 # MacOS
 .DS_Store
+/aws-linodes3.cmd
+/ssh_forward_8000.cmd
