@@ -1,6 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿#region Attribution
+// Contains code from: https://github.com/viciousviper/DokanCloudFS/blob/develop/DokanCloudFS/CloudOperations.cs
+// CloudOperations.cs has the following copyright notice:
+
+/*
+The MIT License(MIT)
+
+Copyright(c) 2015 IgorSoft
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+#endregion
+
 namespace DokanS3FS;
 
 using System.IO;
@@ -10,29 +36,26 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using DokanNet;
 
-public class S3Drive : Runtime
+public partial class S3Drive : Runtime
 {
-    public S3Drive(S3DriveConfig config) :base()
+    #region Constructors
+    public S3Drive(S3DriveConfig config) : base()
     {
         this.config = config;
         this.s3client = S3.GetS3Client(config);
+        this.bucket = this.config.Bucket;
         Initialized = true;
     }
+    #endregion
 
-    public NtStatus CreateFile(
-            string fileName,
-            DokanNet.FileAccess access,
-            FileShare share,
-            FileMode mode,
-            FileOptions options,
-            FileAttributes attributes,
-            IDokanFileInfo info)
-    {
-        return NtStatus.Success;    
-    }
+    #region Fields
+    public S3DriveConfig config;
+    public AmazonS3Client s3client;
+    public string bucket;
+    #endregion
 
     #region Methods
-    private NtStatus AsTrace(string method, string fileName, DokanFileInfo info, NtStatus result, params string[] parameters)
+    private NtStatus AsTrace(string method, string fileName, IDokanFileInfo info, NtStatus result, params string[] parameters)
     {
         var extraParameters = parameters != null && parameters.Length > 0 ? ", " + string.Join(", ", parameters) : string.Empty;
 
@@ -41,7 +64,7 @@ public class S3Drive : Runtime
         return result;
     }
 
-    private NtStatus AsTrace(string method, string fileName, DokanFileInfo info, DokanNet.FileAccess access, FileShare share, FileMode mode, FileOptions options, FileAttributes attributes, NtStatus result)
+    private NtStatus AsTrace(string method, string fileName, IDokanFileInfo info, DokanNet.FileAccess access, FileShare share, FileMode mode, FileOptions options, FileAttributes attributes, NtStatus result)
     {
         Verbose($"{System.Threading.Thread.CurrentThread.ManagedThreadId:D2} / {config.Vol} {method}({fileName}, {info.ToTrace()}, [{access}], [{share}], [{mode}], [{options}], [{attributes}]) -> {result}".ToString(CultureInfo.CurrentCulture));
 
@@ -90,9 +113,7 @@ public class S3Drive : Runtime
     }
     #endregion
 
-    #region Fields
-    public S3DriveConfig config;
-    public AmazonS3Client s3client;
-    #endregion
+    
 }
+
 
