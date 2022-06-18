@@ -482,7 +482,7 @@ namespace Amazon.S3.IO
             ((Amazon.Runtime.Internal.IAmazonWebServiceRequest)getObjectRequest).AddBeforeRequestHandler(S3Helper.FileIORequestEventHandler);
             using (var getObjectResponse = s3Client.GetObjectAsync(getObjectRequest).Result)
             {
-                getObjectResponse.WriteResponseStreamToFileAsync(destFileName, false, DokanS3FS.Runtime.Ct).Wait();
+                getObjectResponse.WriteResponseStreamToFileAsync(destFileName, false,DokanS3FS.Runtime.Ct).Wait();
             }
 
             return new FileInfo(destFileName);
