@@ -26,6 +26,7 @@ using System.Text;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Security.AccessControl;
+using System.Threading;
 
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -42,7 +43,7 @@ namespace Amazon.S3.IO
         private IAmazonS3 s3Client;
         private string bucket;
         private string key;
-
+        private CancellationToken ct;
         /// <summary>
         /// Initialize a new instance of the S3FileInfo class for the specified S3 bucket and S3 object key.
         /// </summary>
@@ -50,7 +51,7 @@ namespace Amazon.S3.IO
         /// <param name="bucket">Name of the S3 bucket.</param>
         /// <param name="key">The S3 object key.</param>
         /// <exception cref="T:System.ArgumentNullException"></exception>
-        public S3FileInfo(IAmazonS3 s3Client, string bucket, string key)
+        public S3FileInfo(IAmazonS3 s3Client, string bucket, string key, CancellationToken ct)
         {
             if (s3Client == null)
             {
@@ -73,8 +74,10 @@ namespace Amazon.S3.IO
             this.s3Client = s3Client;
             this.bucket = bucket;
             this.key = key;
+            this.ct = ct;
         }
 
+        public S3FileInfo(IAmazonS3 s3Client, string bucket, string key) : this(s3Client, bucket, key, DokanS3FS.Runtime.Ct) { }
         /// <summary>
         /// Returns the parent S3DirectoryInfo.
         /// </summary>

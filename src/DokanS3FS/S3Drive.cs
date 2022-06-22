@@ -55,7 +55,7 @@ public partial class S3Drive : Runtime
     #endregion
 
     #region Methods
-    private NtStatus AsTrace(string method, string fileName, IDokanFileInfo info, NtStatus result, params string[] parameters)
+    private NtStatus TraceNtStatus(string method, string fileName, IDokanFileInfo info, NtStatus result, params string[] parameters)
     {
         var extraParameters = parameters != null && parameters.Length > 0 ? ", " + string.Join(", ", parameters) : string.Empty;
 
@@ -64,14 +64,14 @@ public partial class S3Drive : Runtime
         return result;
     }
 
-    private NtStatus AsTrace(string method, string fileName, IDokanFileInfo info, DokanNet.FileAccess access, FileShare share, FileMode mode, FileOptions options, FileAttributes attributes, NtStatus result)
+    private NtStatus TraceNtStatus(string method, string fileName, IDokanFileInfo info, DokanNet.FileAccess access, FileShare share, FileMode mode, FileOptions options, FileAttributes attributes, NtStatus result)
     {
         Verbose($"{System.Threading.Thread.CurrentThread.ManagedThreadId:D2} / {config.Vol} {method}({fileName}, {info.ToTrace()}, [{access}], [{share}], [{mode}], [{options}], [{attributes}]) -> {result}".ToString(CultureInfo.CurrentCulture));
 
         return result;
     }
 
-    private NtStatus AsDebug(string method, string fileName, DokanFileInfo info, NtStatus result, params string[] parameters)
+    private NtStatus DebugNtStatus(string method, string fileName, DokanFileInfo info, NtStatus result, params string[] parameters)
     {
         var extraParameters = parameters != null && parameters.Length > 0 ? ", " + string.Join(", ", parameters) : string.Empty;
 
@@ -80,14 +80,14 @@ public partial class S3Drive : Runtime
         return result;
     }
 
-    private NtStatus AsDebug(string method, string fileName, DokanFileInfo info, DokanNet.FileAccess access, FileShare share, FileMode mode, FileOptions options, FileAttributes attributes, NtStatus result)
+    private NtStatus DebugNtStatus(string method, string fileName, DokanFileInfo info, DokanNet.FileAccess access, FileShare share, FileMode mode, FileOptions options, FileAttributes attributes, NtStatus result)
     {
         Debug($"{System.Threading.Thread.CurrentThread.ManagedThreadId:D2} / {config.Vol} {method}({fileName}, {info.ToTrace()}, [{access}], [{share}], [{mode}], [{options}], [{attributes}]) -> {result}".ToString(CultureInfo.CurrentCulture));
 
         return result;
     }
 
-    private NtStatus AsWarning(string method, string fileName, DokanFileInfo info, NtStatus result, params string[] parameters)
+    private NtStatus WarnNtStatus(string method, string fileName, DokanFileInfo info, NtStatus result, params string[] parameters)
     {
         var extraParameters = parameters != null && parameters.Length > 0 ? ", " + string.Join(", ", parameters) : string.Empty;
 
@@ -96,7 +96,7 @@ public partial class S3Drive : Runtime
         return result;
     }
 
-    private NtStatus AsError(string method, string fileName, DokanFileInfo info, NtStatus result, params string[] parameters)
+    private NtStatus NtStatusError(string method, string fileName, DokanFileInfo info, NtStatus result, params string[] parameters)
     {
         var extraParameters = parameters != null && parameters.Length > 0 ? ", " + string.Join(", ", parameters) : string.Empty;
 
@@ -105,7 +105,7 @@ public partial class S3Drive : Runtime
         return result;
     }
 
-    private NtStatus AsError(string method, string fileName, DokanFileInfo info, DokanNet.FileAccess access, FileShare share, FileMode mode, FileOptions options, FileAttributes attributes, NtStatus result)
+    private NtStatus NtStatusError(string method, string fileName, DokanFileInfo info, DokanNet.FileAccess access, FileShare share, FileMode mode, FileOptions options, FileAttributes attributes, NtStatus result)
     {
         Error($"{System.Threading.Thread.CurrentThread.ManagedThreadId:D2} / {config.Vol} {method}({fileName}, {info.ToTrace()}, [{access}], [{share}], [{mode}], [{options}], [{attributes}]) -> {result}".ToString(CultureInfo.CurrentCulture));
 

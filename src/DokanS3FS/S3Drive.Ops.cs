@@ -27,16 +27,18 @@ SOFTWARE.
 */
 #endregion
 
-using System;
-using System.Collections.Generic;
 namespace DokanS3FS;
 
+using System;
 using System.IO;
 using System.Globalization;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.IO;
+
 using DokanNet;
 
 public partial class S3Drive : Runtime
@@ -58,12 +60,12 @@ public partial class S3Drive : Runtime
             fileName = @"\";
         // HACK: Fix for Bug in Dokany related to a call to CreateFile with a fileName of '\*'
         else if (fileName == @"\*" && access == DokanNet.FileAccess.ReadAttributes)
-            return AsTrace(nameof(CreateFile), fileName, info, access, share, mode, options, attributes, DokanResult.Success);
+            return TraceNtStatus(nameof(CreateFile), fileName, info, access, share, mode, options, attributes, DokanResult.Success);
 
         if (fileName == @"\")
         {
             info.IsDirectory = true;
-            return AsTrace(nameof(CreateFile), fileName, info, access, share, mode, options, attributes, DokanResult.Success);
+            return TraceNtStatus(nameof(CreateFile), fileName, info, access, share, mode, options, attributes, DokanResult.Success);
         }
 
         fileName = fileName.TrimEnd(Path.DirectorySeparatorChar);
@@ -71,10 +73,11 @@ public partial class S3Drive : Runtime
         switch (mode)
         {
             case FileMode.Create:
-                var f = new S3FileInfo(s3client, bucket, fileName);
+                var f = new S3FileInfo(s3client, bucket, fileName, Ct);
+                info.Context = new S3FileStreamContext(f, DokanNet.FileAccess.WriteData);
                 if (f.Exists)
                 {
-                    return AsTrace(nameof(CreateFile), fileName, info, access, share, mode, options, attributes, DokanResult.AlreadyExists);
+                    return TraceNtStatus(nameof(CreateFile), fileName, info, access, share, mode, options, attributes, DokanResult.AlreadyExists);
                 }
                 break;
             default:
