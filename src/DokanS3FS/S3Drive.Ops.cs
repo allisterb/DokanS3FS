@@ -74,11 +74,22 @@ public partial class S3Drive : Runtime
         {
             case FileMode.Create:
                 var f = new S3FileInfo(s3client, bucket, fileName, Ct);
+                var d = new S3FileInfo(s3client, bucket, fileName, Ct);
                 info.Context = new S3FileStreamContext(f, DokanNet.FileAccess.WriteData);
+                if (info.IsDirectory)
+                {
+
+                }
                 if (f.Exists)
                 {
                     return TraceNtStatus(nameof(CreateFile), fileName, info, access, share, mode, options, attributes, DokanResult.AlreadyExists);
                 }
+                else if (d.Exists)
+                {
+                    info.IsDirectory = true;
+                    return TraceNtStatus(nameof(CreateFile), fileName, info, access, share, mode, options, attributes, DokanResult.AlreadyExists);
+                }
+
                 break;
             default:
                 throw new NotImplementedException();

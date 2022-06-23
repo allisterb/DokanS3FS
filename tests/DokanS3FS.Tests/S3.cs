@@ -4,12 +4,9 @@ using Xunit;
 
 namespace DokanS3FS
 {
-    public class S3Tests
+    public class S3Tests : S3TestBase
     {
-        public S3Tests()
-        {
-            S3.SetConfig("s3.xml");
-        }
+        public S3Tests() : base() {}
 
         [Fact]
         public void CanConnectToS3()
